@@ -73,7 +73,8 @@ fn gen_identifiers(fields: &Punctuated<Field, Comma>) -> Vec<Ident> {
 
 fn constrain_system_data_types(clause: &mut WhereClause, fetch_lt: &Lifetime, tys: &[Type]) {
     for ty in tys.iter() {
-        let where_predicate: WherePredicate = parse_quote!(#ty : async_ecs::system::SystemData< #fetch_lt >);
+        let where_predicate: WherePredicate =
+            parse_quote!(#ty : async_ecs::system::SystemData< #fetch_lt >);
         clause.predicates.push(where_predicate);
     }
 }
