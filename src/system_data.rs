@@ -28,34 +28,38 @@ pub fn execute(ast: &DeriveInput) -> proc_macro2::TokenStream {
             async_ecs::system::SystemData< #impl_fetch_lt >
             for #name #ty_generics #where_clause
         {
-            fn setup(resources: &mut async_ecs::resources::Resources) {
+            fn setup(world: &mut async_ecs::world::World) {
                 #(
-                    <#tys as async_ecs::system::SystemData> :: setup(world);
+                    <#tys as async_ecs::system::SystemData>::setup(world);
                 )*
             }
 
-            fn fetch(world: & #impl_fetch_lt async_ecs::resources::Resources) -> Self {
+            fn fetch(world: & #impl_fetch_lt async_ecs::world::World) -> Self {
                 #fetch_return
             }
 
-            fn reads() -> Vec<async_ecs::resources::ResourceId> {
+            fn reads() -> Vec<async_ecs::resource::ResourceId> {
                 let mut r = Vec::new();
 
-                #( {
-                        let mut reads = <#tys as async_ecs::system::SystemData> :: reads();
+                #(
+                    {
+                        let mut reads = <#tys as async_ecs::system::SystemData>::reads();
                         r.append(&mut reads);
-                    } )*
+                    }
+                )*
 
                 r
             }
 
-            fn writes() -> Vec<async_ecs::resources::ResourceId> {
+            fn writes() -> Vec<async_ecs::resource::ResourceId> {
                 let mut r = Vec::new();
 
-                #( {
-                        let mut writes = <#tys as async_ecs::system::SystemData> :: writes();
+                #(
+                    {
+                        let mut writes = <#tys as async_ecs::system::SystemData>::writes();
                         r.append(&mut writes);
-                    } )*
+                    }
+                )*
 
                 r
             }
