@@ -2,7 +2,14 @@
 name = "async-ecs-derive"
 version = "0.1.0"
 authors = ["Bergmann89 <info@bergmann89.de>"]
+description = "Derive macros for async-ecs crate"
 edition = "2018"
+license = "Apache-2.0/MIT"
+repository = "https://github.com/Bergmann89/async-ecs-derive"
+documentation = "https://docs.rs/async-ecs-derive/"
+readme = "README.md"
+keywords = ["gamedev", "ecs", "entity", "component"]
+categories = ["concurrency", "game-engines"]
 
 [dependencies]
 syn = "1.0"
